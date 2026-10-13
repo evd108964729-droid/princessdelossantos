@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Stillwater: Take a moment</title>
+<style>
+:root {
+  --bg: #F5F8F7;
+  --card: #FFFFFF;
+  --ink: #1F2D36;
+  --muted: #55677A;
+  --accent: #1F6F78;
+  --accent-ink: #FFFFFF;
+  --soft: #DCEDEE;
+  --warn: #FFF3D6;
+  --warn-line: #E0A93B;
+  --line: #D3DEDE;
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { --bg: #131D24; --card: #1A2832; --ink: #E8F0F1; --muted: #9FB3BE; --accent: #6CC4CB; --accent-ink: #0F1A20; --soft: #1E3A41; --warn: #3A3220; --warn-line: #E3B35A; --line: #2A3D47; }
+}
+:root[data-theme="dark"] { --bg: #131D24; --card: #1A2832; --ink: #E8F0F1; --muted: #9FB3BE; --accent: #6CC4CB; --accent-ink: #0F1A20; --soft: #1E3A41; --warn: #3A3220; --warn-line: #E3B35A; --line: #2A3D47; }
+*, *::before, *::after { box-sizing: inherit; }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: Georgia, "Times New Roman", serif; font-size: 1.125rem; line-height: 1.7; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+.page { width: min(680px, 100% - 2.5rem); margin: 0 auto; padding: 2.5rem 0 3rem; }
+header { margin-bottom: 2rem; }
+h1 { font-size: 2.4rem; line-height: 1.15; margin: 0 0 .6rem; }
+header p { margin: 0; color: var(--muted); font-size: 1.15rem; }
+.sos { display: inline-block; margin-top: 1rem; font-family: system-ui, sans-serif; font-size: .95rem; color: var(--accent); }
+h2 { font-size: 1.6rem; line-height: 1.25; margin: 0 0 1rem; }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 1.5rem; }
+.options { display: grid; grid-template-columns: repeat(2, 1fr); gap: .75rem; }
+button { font: inherit; font-family: system-ui, sans-serif; font-size: 1rem; cursor: pointer; }
+.opt { text-align: left; background: var(--bg); color: var(--ink); border: 1.5px solid var(--line); border-radius: 12px; padding: .9rem 1rem; }
+.opt:hover { border-color: var(--accent); background: var(--soft); }
+.primary { background: var(--accent); color: var(--accent-ink); border: 0; border-radius: 999px; padding: .7rem 1.3rem; font-weight: 600; }
+.link { background: none; border: 0; color: var(--accent); padding: 0; text-decoration: underline; font-size: .95rem; }
+.guide .intro { font-size: 1.2rem; margin: 0 0 1.25rem; }
+.guide ol { padding-left: 1.4rem; margin: 0 0 1.5rem; }
+.guide li { margin-bottom: .75rem; }
+.guide .check { border-top: 1px solid var(--line); padding-top: 1.25rem; }
+.guide .check h3 { font-size: 1.25rem; margin: 0 0 .75rem; }
+.check .options { grid-template-columns: 1fr; }
+.reply { background: var(--soft); border-radius: 12px; padding: 1rem 1.2rem; margin-top: 1rem; }
+.reply p { margin: 0 0 .75rem; }
+.reply p:last-child { margin-bottom: 0; }
+.help { background: var(--warn); border-left: 5px solid var(--warn-line); border-radius: 8px; padding: 1rem 1.2rem; margin-top: 1rem; }
+.help p { margin: 0 0 .6rem; }
+.help p:last-child { margin-bottom: 0; }
+.back { margin-top: 1.25rem; }
+.contact { margin-top: 2.5rem; background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 1.5rem; }
+.contact h2 { margin-bottom: .5rem; }
+.contact p { margin: 0 0 .5rem; }
+.contact .fb { font-family: system-ui, sans-serif; font-size: 1.05rem; margin-bottom: 0; }
+footer { margin-top: 2.5rem; padding-top: 1.25rem; border-top: 1px solid var(--line); font-family: system-ui, sans-serif; font-size: .9rem; color: var(--muted); }
+@media (max-width: 520px) { .options { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="page">
+  <header>
+    <h1>Stillwater</h1>
+    <p>Take a moment. Tell us how you're feeling, and we'll walk through it together.</p>
+    <a class="sos" href="#help" id="sosLink">Need help right now?</a>
+  </header>
+
+  <main id="main" aria-live="polite"></main>
+
+  <div id="help" class="help" hidden>
+    <p><strong>If you're in danger or thinking about hurting yourself, please get help now.</strong></p>
+    <p>Call your local emergency number or a crisis line in your area. If you can, tell someone near you, such as a family member, friend, or neighbour, and ask them to stay with you.</p>
+    <p>You don't have to handle this alone.</p>
+  </div>
+
+  <section class="contact" id="contact">
+    <h2>Contact</h2>
+    <p>Want to share feedback or say hello? Find me on Facebook:</p>
+    <p class="fb"><strong>Facebook:</strong> Princess Ericka Delos Santos</p>
+  </section>
+
+  <footer>
+    This page shares general guidance, not medical advice or treatment. For urgent or emergency situations, please contact your local emergency number or a crisis line rather than messaging through social media.
+  </footer>
+</div>
+
+<script>
+const TOPICS = [
+  { id: "anxious", label: "Anxious or worried",
+    intro: "That sounds uncomfortable. Anxiety feels urgent, but it passes like a wave. Let's slow things down.",
+    steps: [
+      "Sit or lean back. Let your shoulders drop.",
+      "Breathe in through your nose for 4 seconds, then out slowly for 6. Do this 5 times.",
+      "Look around and name 5 things you can see, 4 you can touch, and 3 you can hear.",
+      "Tell yourself: \"I'm safe right now. I only have to deal with this moment.\""
+    ] },
+  { id: "sad", label: "Sad or low",
+    intro: "I'm sorry you're feeling this way. You don't have to fix it right now. Let's be gentle with you.",
+    steps: [
+      "Put a hand on your chest and take three slow breaths.",
+      "Drink a glass of water or have something small to eat.",
+      "Step near a window or go outside for a few minutes of light and fresh air.",
+      "Choose one tiny thing to do next, like washing your face or making your bed."
+    ] },
+  { id: "angry", label: "Angry or frustrated",
+    intro: "Anger is a signal that something matters to you. Let's cool the heat first, so you can think clearly.",
+    steps: [
+      "If you can, step away from whatever set you off.",
+      "Unclench your jaw and relax your hands and shoulders.",
+      "Breathe out slowly, longer than you breathe in. Repeat 6 times.",
+      "Wait until you feel calmer before you reply or decide anything."
+    ] },
+  { id: "lonely", label: "Lonely",
+    intro: "Loneliness hurts, and it says nothing bad about you. Many people feel it, even if they don't say so.",
+    steps: [
+      "Take a slow breath and remind yourself: \"This feeling is real, and it won't last forever.\"",
+      "Send one small message to someone, like \"Thinking of you. How are you?\"",
+      "If you can, go somewhere with people nearby, such as a cafe, park, or market.",
+      "Do something kind for yourself today, like a favourite song or a warm drink."
+    ] },
+  { id: "overwhelmed", label: "Overwhelmed",
+    intro: "When everything feels like too much, the goal isn't to do it all. It's to find the next small step.",
+    steps: [
+      "Take 3 slow breaths. In for 4, out for 6.",
+      "Write down everything on your mind. Getting it out of your head helps.",
+      "Circle just one thing that matters most today.",
+      "Work on it for 5 minutes only. The rest can wait."
+    ] },
+  { id: "sleep", label: "Tired or can't sleep",
+    intro: "A tired mind can make everything feel heavier. Let's help your body settle.",
+    steps: [
+      "Dim the lights and put your phone away.",
+      "Lie comfortably and breathe in for 4, out for 6, a few minutes.",
+      "If thoughts keep racing, write them on paper and tell yourself they can wait until morning.",
+      "Avoid checking the clock. Just rest. Resting still helps."
+    ] }
+];
+
+const main = document.getElementById("main");
+const helpBox = document.getElementById("help");
+
+function showHelp(show) { helpBox.hidden = !show; if (show) helpBox.scrollIntoView({ block: "nearest" }); }
+
+function home() {
+  helpBox.hidden = true;
+  main.innerHTML = `
+    <div class="card">
+      <h2>How are you feeling right now?</h2>
+      <div class="options">
+        ${TOPICS.map(t => `<button class="opt" data-topic="${t.id}">${t.label}</button>`).join("")}
+      </div>
+    </div>`;
+}
+
+function guide(id) {
+  const t = TOPICS.find(x => x.id === id);
+  helpBox.hidden = true;
+  main.innerHTML = `
+    <div class="card guide">
+      <h2>${t.label}</h2>
+      <p class="intro">${t.intro}</p>
+      <p><strong>Try these, one at a time, at your own pace:</strong></p>
+      <ol>${t.steps.map(s => `<li>${s}</li>`).join("")}</ol>
+      <div class="check">
+        <h3>How are you feeling now?</h3>
+        <div class="options">
+          <button class="opt" data-answer="better" data-topic="${id}">A little calmer</button>
+          <button class="opt" data-answer="same" data-topic="${id}">Not yet</button>
+          <button class="opt" data-answer="notok" data-topic="${id}">I'm not okay</button>
+        </div>
+        <div id="reply"></div>
+      </div>
+      <p class="back"><button class="link" data-action="home">Choose a different feeling</button></p>
+    </div>`;
+  window.scrollTo(0, 0);
+}
+
+function answer(kind, id) {
+  const reply = document.getElementById("reply");
+  helpBox.hidden = true;
+  if (kind === "better") {
+    reply.innerHTML = `<div class="reply">
+      <p>I'm glad you feel a bit calmer. Well done for taking this moment for yourself.</p>
+      <p>Keep it going with a glass of water and a few more slow breaths. If the feeling returns, you can come back here any time.</p>
+    </div>`;
+  } else if (kind === "same") {
+    reply.innerHTML = `<div class="reply">
+      <p>That's okay. Feelings don't always ease right away, and that doesn't mean you're doing it wrong.</p>
+      <p>Try going through the steps once more, even more slowly. It can also help to talk to someone you trust, like a friend or family member, and tell them how you feel.</p>
+      <p><button class="link" data-topic="${id}" data-action="again">Go through the steps again</button></p>
+    </div>`;
+  } else {
+    reply.innerHTML = `<div class="reply">
+      <p>Thank you for being honest. You deserve support right now, and you don't have to get through this alone.</p>
+      <p>Please reach out to someone close to you today, and let them know you're not okay. Being near another person can help.</p>
+      <p>If you're in danger or thinking about hurting yourself, please use the help information below straight away.</p>
+    </div>`;
+    showHelp(true);
+  }
+  reply.scrollIntoView({ block: "nearest" });
+}
+
+document.addEventListener("click", e => {
+  const b = e.target.closest("button, a");
+  if (!b) return;
+  if (b.id === "sosLink") { e.preventDefault(); showHelp(true); return; }
+  if (b.dataset.answer) return answer(b.dataset.answer, b.dataset.topic);
+  if (b.dataset.action === "home") return home();
+  if (b.dataset.action === "again") return guide(b.dataset.topic);
+  if (b.dataset.topic) return guide(b.dataset.topic);
+});
+
+home();
+</script>
+</body>
+</html>
